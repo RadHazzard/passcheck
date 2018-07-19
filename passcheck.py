@@ -1,4 +1,6 @@
 from hashlib import sha1
+# Possibly use filesplit from pypi to split files to more manageable sizes.
+# Split files down and store elsewhere, then prep each file for multithreading. 
 inpath = "" # Password file location
 x = sha1(input("Password to look for: ").encode("utf-8"))
 p = 0
