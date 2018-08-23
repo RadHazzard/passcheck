@@ -31,7 +31,7 @@ with open(inpath) as infile:
     for line in infile:
         p += 1
         if x.hexdigest().upper() in line:
-            print("Hash found: \n")
+            print("Hash found:")
             print(line)
             break
         if p == 5000000:
