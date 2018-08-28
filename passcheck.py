@@ -11,7 +11,7 @@ except ImportError:
     input(" [ ! ] Try running 'python -m pip install psutil' as administrator and try again...")
     exit()
 try:
-    from fsplit.filesplit import FileSplit
+	from fsplit.filesplit import FileSplit
 except ImportError:
     print(" [ ! ] Package 'filesplit' not found. This must be installed.")
     input(" [ ! ] Try running 'python -m pip install filesplit' as administrator and try again...")
@@ -19,15 +19,18 @@ except ImportError:
 
 class Core:
 
-    def __init__(self):
+	def __init__(self):
 		self.thread_dispatcher()
+		self.progress = 0
 		
 	def file_breakdown(self):
+		base_filename = input(" [ ? ] Please provide the exact name of the password file to check against: ")
 		print(" [ i ] Determining split file size based on available memory...")
 		filesize = psutil.virtual_memory().available / 2 # Only going to try and use 1/2 of available mem for any given action
 		print(" [ i ] Splitting file to {:.0f} gb chunks.".format(round(filesize/(1024*1024*1024))))
-
-    def thread_dispatcher(self):
+		fs = FileSplit(file='', splitsize=filesize, output_dir='/splitfile/')
+	
+	def thread_dispatcher(self):
 		print(" [ i ] Setting number of threads based on logical cores...")
 		threadcount = cpu_count()
 		print(" [ i ] Set to", threadcount, "threads.")
