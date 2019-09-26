@@ -20,14 +20,14 @@ with open(file_location) as file:
     else:
         ending = file.seek(0, 2)
     start_time = timeit.default_timer()
-    while ( ending - beginning > hashlength+4 ):
-        bookmark = file.seek((ending + beginning)/2, 0)
+    while (ending - beginning > hashlength+3):
+        temp_position = absolute_position = file.seek((ending + beginning)/2, 0)
         current_line = file.readline()
         while len(current_line.split(":")[0]) < hashlength: # Check if the first part of the split is too short (partial hash, or none at all)
-            bookmark = bookmark - (hashlength - len(current_line.split(":")[0])) # Determine number of characters missing, and adjust bookmark as necessary
-            file.seek(bookmark)
+            temp_position = temp_position - (hashlength - len(current_line.split(":")[0])) # Determine number of characters missing, and adjust position as necessary
+            file.seek(temp_position)
             current_line = file.readline() # Re-assign the string, repeat process until aligned.
-        file.seek(bookmark) # Return to previous line, since readline iterates.
+        file.seek(absolute_position) # Return to absolute positioning of the initial search
         if inquery in current_line:
             found = True
             break
@@ -40,6 +40,6 @@ with open(file_location) as file:
 if found:
     print(f"Hashed version of password found. Number of times seen: " + current_line.split(":")[1])
 else:
-    print("Password not found in this file.")
+    print(f"Password not found in this file.")
 
 print(f"Time spent searching: {timed:.5} milliseconds")
