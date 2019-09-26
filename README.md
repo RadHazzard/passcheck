@@ -1,2 +1,8 @@
 # pwnedpass
-Multi-threaded python script for checking if password has been pwned in whatever version of Pwned Passes from haveibeenpwned
+
+This Python script is meant to search if your password was found in the password files from https://haveibeenpwned.com/Passwords
+
+Currently can only search if sorted by hash.
+
+# to do
+* Maybe clean up and make code more re-useable, but this is a fairly niche task, so..
